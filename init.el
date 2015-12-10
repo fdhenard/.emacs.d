@@ -1,34 +1,19 @@
-;; put in ~/emacs.d/init.el
-
-(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-                         ("marmalade" . "http://marmalade-repo.org/packages/")
-                         ("melpa" . "http://melpa.milkbox.net/packages/")
-                         ("melpa-stable" . "http://stable.melpa.org/packages/"))
+(setq package-archives
+      '(("gnu" . "http://elpa.gnu.org/packages/")
+        ("marmalade" . "http://marmalade-repo.org/packages/")
+        ("melpa" . "http://melpa.milkbox.net/packages/")
+        ("melpa-stable" . "http://stable.melpa.org/packages/"))
       ;;("elpa" . "http://tromey.com/elpa")
       )
 
 ;; activate installed packages
 (package-initialize t)
 
-;; (setq package-pinned-packages
-;;       '((cider . "melpa-stable")
-;;         (clojure-mode . "melpa-stable")
-;;         (jedi . "melpa-stable")
-;;         (flycheck . "melpa-stable")
-;;         (paredit . "melpa-stable")
-;;         (markdown-mode . "melpa-stable")
-;;         (jsx-mode . "melpa-stable")
-;;         (company . "melpa-stable")
-;;         (zenburn-theme . "melpa-stable")
-;; 	))
-
 (setq required-pkgs '(jedi flycheck cider clojure-mode paredit markdown-mode jsx-mode company zenburn-theme))
 
-;; package-pinned-packages sets the preferred emacs plugin repository.  I want melpa-stable for everything,
+;; package-pinned-packages sets the preferred package archive for each package.  I want melpa-stable for everything,
 ;; so just mapping over them to build the keymap
 (setq package-pinned-packages (mapcar (lambda (pkg) `(,pkg . "melpa-stable")) required-pkgs))
-
-;; (print something)
 
 (require 'cl)
 
@@ -44,32 +29,12 @@
 
 
 
-
-
 (add-hook 'html-mode-hook 'turn-off-auto-fill)
-;;(desktop-save-mode 1)
 (global-auto-revert-mode 1)
-
-;; (setq inhibit-startup-message t)
-
-;; got this one mainly for 'M-x beautify-json' - try it, you'll like it!
-;;(load "json-mode.el")
 
 ;; line numbers please
 (global-linum-mode t)
 (setq column-number-mode t)
-
-;; turn on autocomplete
-;;(require 'auto-complete)
-;;(global-auto-complete-mode t)
-;;(add-to-list 'ac-modes 'nrepl-mode)
-
-;; autocomplete in nrepl
-;; (require 'ac-nrepl)
-;;  (add-hook 'nrepl-mode-hook 'ac-nrepl-setup)
-;;  (add-hook 'nrepl-interaction-mode-hook 'ac-nrepl-setup)
-;;  (eval-after-load "auto-complete"
-;;    '(add-to-list 'ac-modes 'nrepl-mode))
 
 ;; company mode auto complete
 (add-hook 'after-init-hook 'global-company-mode)
@@ -116,7 +81,7 @@
           (lambda()
             (setq sgml-basic-offset 4)
             (setq indent-tabs-mode nil)
-	    ))
+            ))
 
 ;; flex file matching for finding files - see http://www.masteringemacs.org/articles/2010/10/10/introduction-to-ido-mode/
 ;; and http://www.emacswiki.org/emacs/InteractivelyDoThings
@@ -151,7 +116,6 @@
 (global-set-key (kbd "C-x <left>") 'windmove-left)
 (global-set-key (kbd "C-x O") 'previous-multiframe-window)
 
-;; (require 'jsx-mode)
 (add-to-list 'auto-mode-alist '("\\.jsx\\'" . jsx-mode))
 (autoload 'jsx-mode "jsx-mode" "JSX mode" t)
 (setq jsx-indent-level 4)
