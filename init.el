@@ -10,19 +10,25 @@
 ;; activate installed packages
 (package-initialize t)
 
-(setq package-pinned-packages
-      '((cider . "melpa-stable")
-        (clojure-mode . "melpa-stable")
-        (jedi . "melpa-stable")
-        (flycheck . "melpa-stable")
-        (paredit . "melpa-stable")
-        (markdown-mode . "melpa-stable")
-        (jsx-mode . "melpa-stable")
-        (company . "melpa-stable")
-        (zenburn-theme . "melpa-stable")
-	))
+;; (setq package-pinned-packages
+;;       '((cider . "melpa-stable")
+;;         (clojure-mode . "melpa-stable")
+;;         (jedi . "melpa-stable")
+;;         (flycheck . "melpa-stable")
+;;         (paredit . "melpa-stable")
+;;         (markdown-mode . "melpa-stable")
+;;         (jsx-mode . "melpa-stable")
+;;         (company . "melpa-stable")
+;;         (zenburn-theme . "melpa-stable")
+;; 	))
 
 (setq required-pkgs '(jedi flycheck cider clojure-mode paredit markdown-mode jsx-mode company zenburn-theme))
+
+;; package-pinned-packages sets the preferred emacs plugin repository.  I want melpa-stable for everything,
+;; so just mapping over them to build the keymap
+(setq package-pinned-packages (mapcar (lambda (pkg) `(,pkg . "melpa-stable")) required-pkgs))
+
+;; (print something)
 
 (require 'cl)
 
