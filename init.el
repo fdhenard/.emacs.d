@@ -6,27 +6,70 @@
       ;;("elpa" . "http://tromey.com/elpa")
       )
 
-;; activate installed packages
-(package-initialize t)
+(setq package-archive-priorities
+  '(("melpa-stable" . 30)
+    ("marmalade" . 20)
+    ("gnu" . 10)
+    ("melpa" . 0)))
 
-(setq required-pkgs '(jedi flycheck cider clojure-mode paredit markdown-mode jsx-mode company zenburn-theme))
+;; activate installed packages
+(package-initialize)
+
+;; ag requires ag or the_silver_searcher native install
+;; (setq required-pkgs '(jedi flycheck cider clojure-mode paredit markdown-mode jsx-mode company zenburn-theme ag neotree))
+;; (setq required-pkgs '(jedi flycheck cider clojure-mode paredit markdown-mode jsx-mode company ag neotree))
 
 ;; package-pinned-packages sets the preferred package archive for each package.  I want melpa-stable for everything,
 ;; so just mapping over them to build the keymap
-(setq package-pinned-packages (mapcar (lambda (pkg) `(,pkg . "melpa-stable")) required-pkgs))
+; (setq package-pinned-packages (mapcar (lambda (pkg) `(,pkg . "melpa-stable")) required-pkgs))
+;
+; (require 'cl)
+;
+; (setq pkgs-to-install
+;       (let ((uninstalled-pkgs (remove-if 'package-installed-p required-pkgs)))
+;         (remove-if-not '(lambda (pkg) (y-or-n-p (format "Package %s is missing. Install it? " pkg))) uninstalled-pkgs)))
+;
+; (when (> (length pkgs-to-install) 0)
+;   (package-refresh-contents)
+;   (dolist (pkg pkgs-to-install)
+;     (package-install pkg)))
 
-(require 'cl)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ansi-color-faces-vector
+   [default default default italic underline success warning error])
+ '(custom-enabled-themes (quote (misterioso)))
+ '(inhibit-startup-screen t)
+ '(package-selected-packages
+   (quote
+    (clojure-mode yaml-mode paredit neotree markdown-mode jsx-mode jedi flycheck company cider ag)))
+ '(safe-local-variable-values
+   (quote
+    ((eval progn
+           (require
+            (quote grep))
+           (let
+               ((my-ignores
+                 (quote
+                  ("mosfet/static/js/dist" "mosfet/static/js/jspm_packages")))
+                (gfid
+                 (make-local-variable
+                  (quote grep-find-ignored-directories))))
+             (dolist
+                 (my-ignore my-ignores)
+               (add-to-list gfid my-ignore))))
+     (grep-find-ignored-directories "mosfet/static/js/dist" "mosfet/static/js/jspm_packages")))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
 
-(setq pkgs-to-install
-      (let ((uninstalled-pkgs (remove-if 'package-installed-p required-pkgs)))
-        (remove-if-not '(lambda (pkg) (y-or-n-p (format "Package %s is missing. Install it? " pkg))) uninstalled-pkgs)))
-
-(when (> (length pkgs-to-install) 0)
-  (package-refresh-contents)
-  (dolist (pkg pkgs-to-install)
-    (package-install pkg)))
-
-
+(package-install-selected-packages)
 
 
 (add-hook 'html-mode-hook 'turn-off-auto-fill)
@@ -37,10 +80,11 @@
 (setq column-number-mode t)
 
 ;; company mode auto complete
-(add-hook 'after-init-hook 'global-company-mode)
+;; (add-hook 'after-init-hook 'global-company-mode)
 
-
-(add-hook 'emacs-lisp-mode-hook 'paredit-mode)
+;; (add-to-list 'load-path "~/.emacs.d/elpa/paredit-24")
+(autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
+(add-hook 'emacs-lisp-mode-hook #'enable-paredit-mode)
 
 (defun kill-ring-save-keep-highlight (beg end)
   "Keep the region active after the kill"
@@ -49,12 +93,13 @@
     (setq deactivate-mark nil)))
 
 ;; use clojure mode for clojurescript files
-(add-to-list 'auto-mode-alist '("\\.cljs$" . clojure-mode))
+;; (add-to-list 'auto-mode-alist '("\\.cljs$" . clojure-mode))
 (add-to-list 'auto-mode-alist '("\\.boot$" . clojure-mode))
+;; (add-to-list 'auto-mode-alist '("\\.clj$" . clojure-mode))
 
 ;; clojure nrepl stacktraces
 (setq cider-repl-popup-stacktraces t)
-(add-hook 'clojure-mode-hook 'paredit-mode)
+(add-hook 'clojure-mode-hook #'enable-paredit-mode)
 (show-paren-mode t)
 
 ;; Javascript mode hook
@@ -62,9 +107,9 @@
 
 
 ;; (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
-(setq custom-safe-themes t)
-(if window-system
-    (add-hook 'after-init-hook (lambda () (load-theme 'zenburn t))))
+;; (setq custom-safe-themes t)
+;; (if window-system
+;;    (add-hook 'after-init-hook (lambda () (load-theme 'zenburn t))))
 
 ;; turn off toolbar
 (tool-bar-mode -1)
@@ -88,18 +133,12 @@
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
 (ido-mode 1)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(inhibit-startup-screen t))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+
+
+; (package-selected-packages
+;   (quote
+;    (company yaml-mode paredit neotree markdown-mode jsx-mode jedi flycheck cider ag clojure-mode)))
+
 
 (setq backup-directory-alist `(("." . "~/.emacs.d/backups/")))
 (put 'narrow-to-region 'disabled nil)
@@ -107,8 +146,8 @@
 (add-hook 'python-mode-hook 'jedi:setup)
 (setq jedi:complete-on-dot t)
 
-(add-hook 'after-init-hook #'global-flycheck-mode)
-(setq exec-path (append exec-path '("/usr/local/bin" "/Users/fdhenard/Library/Python/2.7/bin")))
+;; (add-hook 'after-init-hook #'global-flycheck-mode)
+;; (setq exec-path (append exec-path '("/usr/local/bin" "/Users/fdhenard/Library/Python/2.7/bin")))
 
 (global-set-key (kbd "C-x <up>") 'windmove-up)
 (global-set-key (kbd "C-x <down>") 'windmove-down)
@@ -119,5 +158,11 @@
 (add-to-list 'auto-mode-alist '("\\.jsx\\'" . jsx-mode))
 (autoload 'jsx-mode "jsx-mode" "JSX mode" t)
 (setq jsx-indent-level 4)
+
+;; (add-to-list 'auto-mode-alist '("\\.xml$" . sgml-mode)) ;; didn't work
+
+(global-set-key (kbd "<f8>") 'neotree)
+
+
 
 ;; END!!!
