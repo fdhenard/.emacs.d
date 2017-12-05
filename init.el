@@ -51,7 +51,7 @@
  '(inhibit-startup-screen t)
  '(package-selected-packages
    (quote
-    (restclient window-numbering color-theme-sanityinc-tomorrow clojure-mode yaml-mode paredit neotree markdown-mode jsx-mode jedi flycheck company cider ag)))
+    (php-mode restclient window-numbering color-theme-sanityinc-tomorrow clojure-mode yaml-mode paredit neotree markdown-mode jsx-mode jedi flycheck company cider ag)))
  '(safe-local-variable-values
    (quote
     ((eval progn
