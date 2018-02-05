@@ -51,7 +51,7 @@
  '(inhibit-startup-screen t)
  '(package-selected-packages
    (quote
-    (php-mode restclient window-numbering color-theme-sanityinc-tomorrow clojure-mode yaml-mode paredit neotree markdown-mode jsx-mode jedi flycheck company cider ag)))
+    (web-mode php-mode restclient window-numbering color-theme-sanityinc-tomorrow clojure-mode yaml-mode paredit neotree markdown-mode jsx-mode jedi flycheck company cider ag)))
  '(safe-local-variable-values
    (quote
     ((eval progn
@@ -209,6 +209,9 @@
 (window-numbering-mode)
 
 (add-hook 'scheme-mode-hook #'enable-paredit-mode)
+
+(require 'web-mode)
+(add-to-list 'auto-mode-alist '("\\.vue\\'" . web-mode))
 
 
 ;; END!!!
