@@ -15,25 +15,6 @@
 ;; activate installed packages
 (package-initialize)
 
-;; ag requires ag or the_silver_searcher native install
-;; (setq required-pkgs '(jedi flycheck cider clojure-mode paredit markdown-mode jsx-mode company zenburn-theme ag neotree))
-;; (setq required-pkgs '(jedi flycheck cider clojure-mode paredit markdown-mode jsx-mode company ag neotree))
-
-;; package-pinned-packages sets the preferred package archive for each package.  I want melpa-stable for everything,
-;; so just mapping over them to build the keymap
-; (setq package-pinned-packages (mapcar (lambda (pkg) `(,pkg . "melpa-stable")) required-pkgs))
-;
-; (require 'cl)
-;
-; (setq pkgs-to-install
-;       (let ((uninstalled-pkgs (remove-if 'package-installed-p required-pkgs)))
-;         (remove-if-not '(lambda (pkg) (y-or-n-p (format "Package %s is missing. Install it? " pkg))) uninstalled-pkgs)))
-;
-; (when (> (length pkgs-to-install) 0)
-;   (package-refresh-contents)
-;   (dolist (pkg pkgs-to-install)
-;     (package-install pkg)))
-
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -51,7 +32,7 @@
  '(inhibit-startup-screen t)
  '(package-selected-packages
    (quote
-    (dockerfile-mode web-mode php-mode restclient window-numbering color-theme-sanityinc-tomorrow clojure-mode yaml-mode paredit neotree markdown-mode jsx-mode jedi flycheck company cider ag)))
+    (use-package js2-mode prettier-js dockerfile-mode web-mode php-mode restclient window-numbering color-theme-sanityinc-tomorrow clojure-mode yaml-mode paredit neotree markdown-mode jsx-mode jedi flycheck company cider ag)))
  '(safe-local-variable-values
    (quote
     ((eval progn
@@ -98,6 +79,9 @@
  )
 
 (package-install-selected-packages)
+
+(eval-when-compile
+  (require 'use-package))
 
 
 (add-hook 'html-mode-hook 'turn-off-auto-fill)
@@ -210,8 +194,28 @@
 
 (add-hook 'scheme-mode-hook #'enable-paredit-mode)
 
-(require 'web-mode)
-(add-to-list 'auto-mode-alist '("\\.vue\\'" . web-mode))
+;; (require 'web-mode)
+;; (add-to-list 'auto-mode-alist '("\\.vue\\'" . web-mode))
+(use-package web-mode
+  :mode "\\.vue\\'")
+
+(use-package js2-mode
+  :mode "\\.js\\'"
+  :hook js2-imenu-extras-mode
+  )
+
+(use-package prettier-js
+  :ensure t
+  :interpreter ("prettier-js" . prettier-js-mode)
+  :after (js2-mode)
+  :hook ((js2-mode . prettier-js-mode)
+         (web-mode . prettier-js-mode))
+  :custom
+  (prettier-js-args
+   '("--single-quote" "true"
+     "--trailing-comma" "es5"
+     "--tab-width" "4"
+     "--print-width" "100")))
 
 
 ;; END!!!
