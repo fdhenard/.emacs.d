@@ -173,7 +173,12 @@
 
 ;; (add-to-list 'auto-mode-alist '("\\.xml$" . sgml-mode)) ;; didn't work
 
-(global-set-key (kbd "<f8>") 'neotree)
+;; (global-set-key (kbd "<f8>") 'neotree)
+;; NeoTree - https://www.emacswiki.org/emacs/NeoTree
+(use-package neotree
+  :ensure t
+  :bind (([f8] . neotree-toggle))
+  :config (setq neo-autorefresh nil))
 
 
 
