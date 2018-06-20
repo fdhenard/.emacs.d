@@ -202,12 +202,19 @@
 ;; (require 'web-mode)
 ;; (add-to-list 'auto-mode-alist '("\\.vue\\'" . web-mode))
 (use-package web-mode
-  :mode "\\.vue\\'")
+  :mode ("\\.vue\\'"
+         "\\.html\\'")
+  :custom
+  (web-mode-style-padding 0)
+  (web-mode-script-padding 0)
+  (web-mode-block-padding 0)
+  (web-mode-comment-style 0))
 
 (use-package js2-mode
   :mode "\\.js\\'"
   :hook js2-imenu-extras-mode
-  )
+  :custom
+  (js2-ignored-warnings (quote ("msg.extra.trailing.comma"))))
 
 (use-package prettier-js
   :ensure t
