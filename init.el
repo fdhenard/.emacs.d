@@ -208,7 +208,12 @@
   (web-mode-style-padding 0)
   (web-mode-script-padding 0)
   (web-mode-block-padding 0)
-  (web-mode-comment-style 0))
+  (web-mode-comment-style 0)
+  (web-mode-comment-formats
+    '(("javascript" . "//")))
+  :catch (lambda (keyword err)
+           (message (error-message-string err)))
+  )
 
 (use-package js2-mode
   :mode "\\.js\\'"
@@ -216,18 +221,25 @@
   :custom
   (js2-ignored-warnings (quote ("msg.extra.trailing.comma"))))
 
-(use-package prettier-js
-  :ensure t
-  :interpreter ("prettier-js" . prettier-js-mode)
-  :after (js2-mode)
-  :hook ((js2-mode . prettier-js-mode)
-         (web-mode . prettier-js-mode))
-  :custom
-  (prettier-js-args
-   '("--single-quote" "true"
-     "--trailing-comma" "es5"
-     "--tab-width" "4"
-     "--print-width" "100")))
+; (use-package prettier-js
+;   :ensure t
+;   :interpreter ("prettier-js" . prettier-js-mode)
+;   :after (:any web-mode js2-mode)
+;   :hook (js2-mode web-mode)
+;   :preface (message "I'm here at byte-compile and load time.")
+;   :init (message "I'm always here at startup")
+;   :config
+;   (message "prettier-js loaded")
+;   ; (error "prettier-js error")
+;   :catch (lambda (keyword err)
+;             (message (error-message-string err)))
+;   :custom
+;   (prettier-js-args
+;    '("--single-quote" "true"
+;      "--trailing-comma" "es5"
+;      "--tab-width" "4"
+;      "--print-width" "100")))
 
+;; (server-start)
 
 ;; END!!!
