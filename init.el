@@ -178,7 +178,9 @@
 (use-package neotree
   :ensure t
   :bind (([f8] . neotree-toggle))
-  :config (setq neo-autorefresh nil))
+  :config
+  (setq neo-autorefresh nil)
+  (setq neo-show-hidden-files t))
 
 
 
@@ -244,5 +246,8 @@
 
 (require 're-builder)
 (setq reb-re-syntax 'string)
+
+(use-package restclient-mode
+  :mode "\\.http\\'")
 
 ;; END!!!
