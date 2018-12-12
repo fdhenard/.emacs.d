@@ -2,9 +2,9 @@
       '(("gnu" . "http://elpa.gnu.org/packages/")
         ("marmalade" . "http://marmalade-repo.org/packages/")
         ("melpa" . "http://melpa.milkbox.net/packages/")
-        ("melpa-stable" . "http://stable.melpa.org/packages/"))
-      ;;("elpa" . "http://tromey.com/elpa")
-      )
+        ("melpa-stable" . "http://stable.melpa.org/packages/")
+        ;; ("elpa" . "http://tromey.com/elpa")
+       ))
 
 (setq package-archive-priorities
   '(("melpa-stable" . 30)
@@ -79,6 +79,10 @@
  )
 
 (package-install-selected-packages)
+
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
 
 (eval-when-compile
   (require 'use-package))
@@ -185,16 +189,17 @@
 
 
 
-(load (expand-file-name "~/quicklisp/slime-helper.el"))
-;; Replace "sbcl" with the path to your implementation
-(setq inferior-lisp-program "/usr/local/bin/sbcl")
+;; (load (expand-file-name "~/quicklisp/slime-helper.el"))
+;; ;; Replace "sbcl" with the path to your implementation
+;; (setq inferior-lisp-program "/usr/local/bin/sbcl")
 
-;; Set default font
-(set-face-attribute 'default nil
-                    :family "Input"
-                    :height 120
-                    :weight 'semi-light
-                    :width 'normal)
+;; ;; Set default font
+;; ;; input font can be found here:  http://input.fontbureau.com/download/
+;; (set-face-attribute 'default nil
+;;                     :family "Input Mono"
+;;                     :height 120
+;;                     :weight 'semi-light
+;;                     :width 'normal)
 
 ;; https://melpa.org/#/window-numbering
 (window-numbering-mode)
