@@ -88,6 +88,8 @@
   (require 'use-package))
 
 
+(set-language-environment "UTF-8")
+
 (add-hook 'html-mode-hook 'turn-off-auto-fill)
 (global-auto-revert-mode 1)
 
