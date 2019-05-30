@@ -155,8 +155,13 @@
 (setq backup-directory-alist `(("." . "~/.emacs.d/backups/")))
 (put 'narrow-to-region 'disabled nil)
 
-(add-hook 'python-mode-hook 'jedi:setup)
-(setq jedi:complete-on-dot t)
+;; (add-hook 'python-mode-hook 'jedi:setup)
+;; (setq jedi:complete-on-dot t)
+(use-package jedi
+  :ensure t
+  :config
+  (add-hook 'python-mode-hook 'jedi:setup)
+  (setq jedi:complete-on-dot t))
 
 (add-hook 'after-init-hook #'global-flycheck-mode)
 
