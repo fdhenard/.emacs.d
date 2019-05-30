@@ -32,7 +32,7 @@
  '(inhibit-startup-screen t)
  '(package-selected-packages
    (quote
-    (use-package js2-mode prettier-js dockerfile-mode web-mode php-mode restclient window-numbering color-theme-sanityinc-tomorrow clojure-mode yaml-mode paredit neotree markdown-mode jsx-mode jedi flycheck company cider ag)))
+    (rubocop use-package js2-mode prettier-js dockerfile-mode web-mode php-mode restclient window-numbering color-theme-sanityinc-tomorrow clojure-mode yaml-mode paredit neotree markdown-mode jsx-mode jedi flycheck company cider ag)))
  '(safe-local-variable-values
    (quote
     ((eval progn
@@ -142,7 +142,7 @@
 ;; no tabs in html!
 (add-hook 'html-mode-hook
           (lambda()
-            (setq sgml-basic-offset 4)
+            ;; (setq sgml-basic-offset 4)
             (setq indent-tabs-mode nil)))
 
 ;; flex file matching for finding files - see http://www.masteringemacs.org/articles/2010/10/10/introduction-to-ido-mode/
@@ -199,14 +199,16 @@
 (use-package web-mode
   :ensure t
   :mode ("\\.vue\\'"
-         "\\.html\\'")
+         "\\.html\\'"
+         "\\.erb\\'")
   :custom
   (web-mode-style-padding 0)
   (web-mode-script-padding 0)
   (web-mode-block-padding 0)
   (web-mode-comment-style 0)
   (web-mode-comment-formats
-    '(("javascript" . "//")))
+   '(("javascript" . "//")))
+  (web-mode-markup-indent-offset 2)
   :catch (lambda (keyword err)
            (message (error-message-string err))))
 
@@ -225,5 +227,9 @@
 
 (use-package restclient-mode
   :mode "\\.http\\'")
+
+(use-package rubocop
+  :init
+  (add-hook 'ruby-mode-hook #'rubocop-mode))
 
 ;; END!!!
