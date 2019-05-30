@@ -138,6 +138,7 @@
 ;; no tabs!
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
+
 ;; no tabs in html!
 (add-hook 'html-mode-hook
           (lambda()
