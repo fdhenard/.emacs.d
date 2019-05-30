@@ -97,10 +97,6 @@
 (global-linum-mode t)
 (setq column-number-mode t)
 
-;; company mode auto complete
-;; (add-hook 'after-init-hook 'global-company-mode)
-
-;; (add-to-list 'load-path "~/.emacs.d/elpa/paredit-24")
 (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
 (add-hook 'emacs-lisp-mode-hook #'enable-paredit-mode)
 
@@ -110,10 +106,7 @@
   (prog1 (kill-ring-save beg end)
     (setq deactivate-mark nil)))
 
-;; use clojure mode for clojurescript files
-;; (add-to-list 'auto-mode-alist '("\\.cljs$" . clojure-mode))
 (add-to-list 'auto-mode-alist '("\\.boot$" . clojure-mode))
-;; (add-to-list 'auto-mode-alist '("\\.clj$" . clojure-mode))
 
 ;; clojure nrepl stacktraces
 (setq cider-repl-popup-stacktraces t)
@@ -123,11 +116,6 @@
 ;; Javascript mode hook
 (add-hook 'js-mode-hook 'electric-pair-mode)
 
-
-;; (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
-;; (setq custom-safe-themes t)
-;; (if window-system
-;;    (add-hook 'after-init-hook (lambda () (load-theme 'zenburn t))))
 
 ;; turn off toolbar
 (tool-bar-mode -1)
@@ -153,11 +141,6 @@
 (ido-mode 1)
 
 
-; (package-selected-packages
-;   (quote
-;    (company yaml-mode paredit neotree markdown-mode jsx-mode jedi flycheck cider ag clojure-mode)))
-
-
 (setq backup-directory-alist `(("." . "~/.emacs.d/backups/")))
 (put 'narrow-to-region 'disabled nil)
 
@@ -165,7 +148,6 @@
 (setq jedi:complete-on-dot t)
 
 (add-hook 'after-init-hook #'global-flycheck-mode)
-;; (setq exec-path (append exec-path '("/usr/local/bin" "/Users/fdhenard/Library/Python/2.7/bin")))
 
 (global-set-key (kbd "C-x <up>") 'windmove-up)
 (global-set-key (kbd "C-x <down>") 'windmove-down)
@@ -177,9 +159,6 @@
 (autoload 'jsx-mode "jsx-mode" "JSX mode" t)
 (setq jsx-indent-level 4)
 
-;; (add-to-list 'auto-mode-alist '("\\.xml$" . sgml-mode)) ;; didn't work
-
-;; (global-set-key (kbd "<f8>") 'neotree)
 ;; NeoTree - https://www.emacswiki.org/emacs/NeoTree
 (use-package neotree
   :ensure t
@@ -190,26 +169,11 @@
 
 
 
-
-;; (load (expand-file-name "~/quicklisp/slime-helper.el"))
-;; ;; Replace "sbcl" with the path to your implementation
-;; (setq inferior-lisp-program "/usr/local/bin/sbcl")
-
-;; ;; Set default font
-;; ;; input font can be found here:  http://input.fontbureau.com/download/
-;; (set-face-attribute 'default nil
-;;                     :family "Input Mono"
-;;                     :height 120
-;;                     :weight 'semi-light
-;;                     :width 'normal)
-
 ;; https://melpa.org/#/window-numbering
 (window-numbering-mode)
 
 (add-hook 'scheme-mode-hook #'enable-paredit-mode)
 
-;; (require 'web-mode)
-;; (add-to-list 'auto-mode-alist '("\\.vue\\'" . web-mode))
 (use-package web-mode
   :mode ("\\.vue\\'"
          "\\.html\\'")
@@ -229,27 +193,6 @@
   :hook js2-imenu-extras-mode
   :custom
   (js2-ignored-warnings (quote ("msg.extra.trailing.comma"))))
-
-; (use-package prettier-js
-;   :ensure t
-;   :interpreter ("prettier-js" . prettier-js-mode)
-;   :after (:any web-mode js2-mode)
-;   :hook (js2-mode web-mode)
-;   :preface (message "I'm here at byte-compile and load time.")
-;   :init (message "I'm always here at startup")
-;   :config
-;   (message "prettier-js loaded")
-;   ; (error "prettier-js error")
-;   :catch (lambda (keyword err)
-;             (message (error-message-string err)))
-;   :custom
-;   (prettier-js-args
-;    '("--single-quote" "true"
-;      "--trailing-comma" "es5"
-;      "--tab-width" "4"
-;      "--print-width" "100")))
-
-;; (server-start)
 
 (require 're-builder)
 (setq reb-re-syntax 'string)
