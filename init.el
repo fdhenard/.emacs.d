@@ -106,15 +106,26 @@
   (prog1 (kill-ring-save beg end)
     (setq deactivate-mark nil)))
 
-(add-to-list 'auto-mode-alist '("\\.boot$" . clojure-mode))
+;; (add-to-list 'auto-mode-alist '("\\.boot$" . clojure-mode))
+(use-package clojure-mode
+  :ensure t
+  :mode "\\.boot$"
+  :config
+  (add-hook 'clojure-mode-hook #'enable-paredit-mode))
 
 ;; clojure nrepl stacktraces
-(setq cider-repl-popup-stacktraces t)
-(add-hook 'clojure-mode-hook #'enable-paredit-mode)
+;; (setq cider-repl-popup-stacktraces t)
+;; (add-hook 'clojure-mode-hook #'enable-paredit-mode)
+(use-package cider
+  :ensure t
+  :pin melpa-stable
+  :init
+  (setq cider-repl-popup-stacktraces t))
+
 (show-paren-mode t)
 
 ;; Javascript mode hook
-(add-hook 'js-mode-hook 'electric-pair-mode)
+;; (add-hook 'js-mode-hook 'electric-pair-mode)
 
 
 ;; turn off toolbar
@@ -131,8 +142,7 @@
 (add-hook 'html-mode-hook
           (lambda()
             (setq sgml-basic-offset 4)
-            (setq indent-tabs-mode nil)
-            ))
+            (setq indent-tabs-mode nil)))
 
 ;; flex file matching for finding files - see http://www.masteringemacs.org/articles/2010/10/10/introduction-to-ido-mode/
 ;; and http://www.emacswiki.org/emacs/InteractivelyDoThings
@@ -155,9 +165,13 @@
 (global-set-key (kbd "C-x <left>") 'windmove-left)
 (global-set-key (kbd "C-x O") 'previous-multiframe-window)
 
-(add-to-list 'auto-mode-alist '("\\.jsx\\'" . jsx-mode))
-(autoload 'jsx-mode "jsx-mode" "JSX mode" t)
-(setq jsx-indent-level 4)
+;; (add-to-list 'auto-mode-alist '("\\.jsx\\'" . jsx-mode))
+;; (autoload 'jsx-mode "jsx-mode" "JSX mode" t)
+;; (setq jsx-indent-level 4)
+(use-package jsx-mode
+  :mode "\\.jsx\\'"
+  :init
+  (setq jsx-indent-level 4))
 
 ;; NeoTree - https://www.emacswiki.org/emacs/NeoTree
 (use-package neotree
@@ -172,9 +186,12 @@
 ;; https://melpa.org/#/window-numbering
 (window-numbering-mode)
 
-(add-hook 'scheme-mode-hook #'enable-paredit-mode)
+(use-package scheme
+  :config
+  (add-hook 'scheme-mode-hook #'enable-paredit-mode))
 
 (use-package web-mode
+  :ensure t
   :mode ("\\.vue\\'"
          "\\.html\\'")
   :custom
@@ -185,10 +202,10 @@
   (web-mode-comment-formats
     '(("javascript" . "//")))
   :catch (lambda (keyword err)
-           (message (error-message-string err)))
-  )
+           (message (error-message-string err))))
 
 (use-package js2-mode
+  :ensure t
   :mode "\\.js\\'"
   :hook js2-imenu-extras-mode
   :custom
