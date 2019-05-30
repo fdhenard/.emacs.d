@@ -217,8 +217,11 @@
   :custom
   (js2-ignored-warnings (quote ("msg.extra.trailing.comma"))))
 
-(require 're-builder)
-(setq reb-re-syntax 'string)
+;; (require 're-builder)
+;; (setq reb-re-syntax 'string)
+(use-package re-builder
+  :init
+  (setq reb-re-syntax 'string))
 
 (use-package restclient-mode
   :mode "\\.http\\'")
