@@ -200,7 +200,7 @@
   :ensure t
   :mode ("\\.vue\\'"
          "\\.html\\'"
-         "\\.erb\\'")
+         "\\.html.erb\\'")
   :custom
   (web-mode-style-padding 0)
   (web-mode-script-padding 0)
@@ -211,6 +211,9 @@
   (web-mode-markup-indent-offset 2)
   :catch (lambda (keyword err)
            (message (error-message-string err))))
+
+(use-package coffee-mode
+  :mode ("\\.coffee.erb\\'"))
 
 (use-package js2-mode
   :ensure t
