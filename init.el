@@ -163,7 +163,9 @@
   (add-hook 'python-mode-hook 'jedi:setup)
   (setq jedi:complete-on-dot t))
 
-(add-hook 'after-init-hook #'global-flycheck-mode)
+;; Flycheck prereq - 6/10/19 need flake8 -> pip3 install flake8 (globally, no venv)
+(use-package flycheck
+  :init (global-flycheck-mode))
 
 (global-set-key (kbd "C-x <up>") 'windmove-up)
 (global-set-key (kbd "C-x <down>") 'windmove-down)
