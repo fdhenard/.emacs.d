@@ -32,7 +32,7 @@
  '(inhibit-startup-screen t)
  '(package-selected-packages
    (quote
-    (rubocop use-package js2-mode prettier-js dockerfile-mode web-mode php-mode restclient window-numbering color-theme-sanityinc-tomorrow clojure-mode yaml-mode paredit neotree markdown-mode jsx-mode jedi flycheck company cider ag)))
+    (yaml-mode window-numbering web-mode use-package rubocop restclient prettier-js php-mode paredit neotree markdown-mode jsx-mode js2-mode jedi flycheck dockerfile-mode company color-theme-sanityinc-tomorrow cider ag)))
  '(safe-local-variable-values
    (quote
     ((eval progn
