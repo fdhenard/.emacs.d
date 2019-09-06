@@ -1,10 +1,7 @@
 (setq package-archives
       '(("gnu" . "http://elpa.gnu.org/packages/")
-        ;; ("marmalade" . "http://marmalade-repo.org/packages/")
         ("melpa" . "http://melpa.milkbox.net/packages/")
-        ("melpa-stable" . "http://stable.melpa.org/packages/")
-        ;; ("elpa" . "http://tromey.com/elpa")
-       ))
+        ("melpa-stable" . "http://stable.melpa.org/packages/")))
 
 (setq package-archive-priorities
   '(("melpa-stable" . 30)
@@ -32,7 +29,7 @@
  '(inhibit-startup-screen t)
  '(package-selected-packages
    (quote
-    (yaml-mode window-numbering web-mode use-package rubocop restclient prettier-js php-mode paredit neotree markdown-mode jsx-mode js2-mode jedi flycheck dockerfile-mode company color-theme-sanityinc-tomorrow cider ag)))
+    (clojure-mode yaml-mode window-numbering web-mode use-package rubocop restclient prettier-js php-mode paredit neotree markdown-mode jsx-mode js2-mode jedi flycheck dockerfile-mode company color-theme-sanityinc-tomorrow cider ag)))
  '(safe-local-variable-values
    (quote
     ((eval progn
@@ -97,8 +94,14 @@
 (global-linum-mode t)
 (setq column-number-mode t)
 
-(autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
-(add-hook 'emacs-lisp-mode-hook #'enable-paredit-mode)
+(use-package color-theme-sanityinc-tomorrow
+  :ensure t
+  :config (load-theme 'sanityinc-tomorrow-blue))
+
+(use-package paredit
+  :ensure t
+  :config
+  (add-hook 'emacs-lisp-mode-hook #'paredit-mode))
 
 (defun kill-ring-save-keep-highlight (beg end)
   "Keep the region active after the kill"
@@ -106,16 +109,12 @@
   (prog1 (kill-ring-save beg end)
     (setq deactivate-mark nil)))
 
-;; (add-to-list 'auto-mode-alist '("\\.boot$" . clojure-mode))
 (use-package clojure-mode
   :ensure t
   :mode "\\.boot$"
   :config
   (add-hook 'clojure-mode-hook #'enable-paredit-mode))
 
-;; clojure nrepl stacktraces
-;; (setq cider-repl-popup-stacktraces t)
-;; (add-hook 'clojure-mode-hook #'enable-paredit-mode)
 (use-package cider
   :ensure t
   :pin melpa-stable
@@ -123,10 +122,6 @@
   (setq cider-repl-popup-stacktraces t))
 
 (show-paren-mode t)
-
-;; Javascript mode hook
-;; (add-hook 'js-mode-hook 'electric-pair-mode)
-
 
 ;; turn off toolbar
 (tool-bar-mode -1)
@@ -165,6 +160,7 @@
 
 ;; Flycheck prereq - 6/10/19 need flake8 -> pip3 install flake8 (globally, no venv)
 (use-package flycheck
+  :ensure t
   :init (global-flycheck-mode))
 
 (global-set-key (kbd "C-x <up>") 'windmove-up)
@@ -173,9 +169,7 @@
 (global-set-key (kbd "C-x <left>") 'windmove-left)
 (global-set-key (kbd "C-x O") 'previous-multiframe-window)
 
-;; (add-to-list 'auto-mode-alist '("\\.jsx\\'" . jsx-mode))
-;; (autoload 'jsx-mode "jsx-mode" "JSX mode" t)
-;; (setq jsx-indent-level 4)
+
 (use-package jsx-mode
   :mode "\\.jsx\\'"
   :init
@@ -192,7 +186,9 @@
 
 
 ;; https://melpa.org/#/window-numbering
-(window-numbering-mode)
+(use-package window-numbering
+  :ensure t
+  :config (window-numbering-mode))
 
 (use-package scheme
   :config
@@ -224,8 +220,6 @@
   :custom
   (js2-ignored-warnings (quote ("msg.extra.trailing.comma"))))
 
-;; (require 're-builder)
-;; (setq reb-re-syntax 'string)
 (use-package re-builder
   :init
   (setq reb-re-syntax 'string))
@@ -234,6 +228,7 @@
   :mode "\\.http\\'")
 
 (use-package rubocop
+  :ensure t
   :init
   (add-hook 'ruby-mode-hook #'rubocop-mode))
 
