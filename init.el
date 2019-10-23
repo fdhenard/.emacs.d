@@ -232,4 +232,11 @@
   :init
   (add-hook 'ruby-mode-hook #'rubocop-mode))
 
+ (use-package dired
+   :config
+   (when (string= system-type "darwin")
+     (setq dired-use-ls-dired nil))
+   :init
+   (add-hook 'dired-mode-hook #'dired-hide-details-mode))
+
 ;; END!!!
