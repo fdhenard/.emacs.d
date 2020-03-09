@@ -169,6 +169,13 @@
 (global-set-key (kbd "C-x <left>") 'windmove-left)
 (global-set-key (kbd "C-x O") 'previous-multiframe-window)
 
+;; https://www.emacswiki.org/emacs/windowresize
+;; S-C means Shift+Control or Control+Shift
+(global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
+(global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
+(global-set-key (kbd "S-C-<down>") 'shrink-window)
+(global-set-key (kbd "S-C-<up>") 'enlarge-window)
+
 
 (use-package jsx-mode
   :mode "\\.jsx\\'"
