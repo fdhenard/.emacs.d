@@ -113,7 +113,8 @@
   :ensure t
   :mode "\\.boot$"
   :config
-  (add-hook 'clojure-mode-hook #'enable-paredit-mode))
+  (add-hook 'clojure-mode-hook #'enable-paredit-mode)
+  (put-clojure-indent '>defn 2))
 
 (use-package cider
   :ensure t
