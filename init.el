@@ -1,3 +1,9 @@
+;;; Package --- summary
+
+;;; Commentary:
+
+;;; Code:
+
 (setq package-archives
       '(("gnu" . "http://elpa.gnu.org/packages/")
         ("melpa" . "http://melpa.milkbox.net/packages/")
@@ -100,11 +106,16 @@
 
 (use-package paredit
   :ensure t
+  ;; :config
+  ;; (add-hook 'emacs-lisp-mode-hook #'paredit-mode)
+  )
+
+(use-package elisp-mode
   :config
-  (add-hook 'emacs-lisp-mode-hook #'paredit-mode))
+  (add-hook 'emacs-lisp-mode-hook #'enable-paredit-mode))
 
 (defun kill-ring-save-keep-highlight (beg end)
-  "Keep the region active after the kill"
+  "Keep the region active after the kill."
   (interactive "r")
   (prog1 (kill-ring-save beg end)
     (setq deactivate-mark nil)))
@@ -114,6 +125,7 @@
   :mode "\\.boot$"
   :config
   (add-hook 'clojure-mode-hook #'enable-paredit-mode)
+  (add-hook 'clojure-mode-hook #'hs-minor-mode)
   (put-clojure-indent '>defn 2))
 
 (use-package cider
@@ -247,4 +259,4 @@
    :init
    (add-hook 'dired-mode-hook #'dired-hide-details-mode))
 
-;; END!!!
+;;; init.el ends here
