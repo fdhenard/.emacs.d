@@ -126,7 +126,8 @@
   :config
   (add-hook 'clojure-mode-hook #'enable-paredit-mode)
   (add-hook 'clojure-mode-hook #'hs-minor-mode)
-  (put-clojure-indent '>defn 2))
+  (define-clojure-indent
+    (>defn :defn)))
 
 (use-package cider
   :ensure t
