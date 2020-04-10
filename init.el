@@ -38,7 +38,8 @@
     (clojure-mode yaml-mode window-numbering web-mode use-package rubocop restclient prettier-js php-mode paredit neotree markdown-mode jsx-mode js2-mode jedi flycheck dockerfile-mode company color-theme-sanityinc-tomorrow cider ag)))
  '(safe-local-variable-values
    (quote
-    ((eval progn
+    ((cider-preferred-build-tool . "clojure-cli")
+     (eval progn
            (require
             (quote grep))
            (let
