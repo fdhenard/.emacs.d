@@ -128,7 +128,11 @@
   (add-hook 'clojure-mode-hook #'enable-paredit-mode)
   (add-hook 'clojure-mode-hook #'hs-minor-mode)
   (define-clojure-indent
-    (>defn :defn)))
+    ;; >defn - ghostwheel
+    (>defn :defn)
+    ;; defmutation - fulcro - same as defrecord -
+    ;;   see https://github.com/clojure-emacs/clojure-mode/blob/master/clojure-mode.el
+    (defmutation '(2 nil nil (:defn)))))
 
 (use-package cider
   :ensure t
@@ -203,7 +207,8 @@
   :bind (([f8] . neotree-toggle))
   :config
   (setq neo-autorefresh nil)
-  (setq neo-show-hidden-files t))
+  (setq neo-show-hidden-files t)
+  (setq neo-window-fixed-size nil))
 
 
 
