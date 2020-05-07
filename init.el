@@ -134,6 +134,10 @@
     ;;   see https://github.com/clojure-emacs/clojure-mode/blob/master/clojure-mode.el
     (defmutation '(2 nil nil (:defn)))))
 
+
+;; cider notes:
+;; key combinations
+;;  - an equivalent to `M-x cider-repl-clear-buffer` = `C-u C-c C-o
 (use-package cider
   :ensure t
   :pin melpa-stable
