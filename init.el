@@ -288,4 +288,9 @@
    :init
    (add-hook 'dired-mode-hook #'dired-hide-details-mode))
 
+;; turn off bell
+(setq visible-bell t)
+;; (setq ring-bell-function 'ignore)
+
+
 ;;; init.el ends here
