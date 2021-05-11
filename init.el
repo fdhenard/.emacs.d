@@ -26,37 +26,30 @@
    [default default default italic underline success warning error])
  '(ansi-color-names-vector
    (vector "#cccccc" "#f2777a" "#99cc99" "#ffcc66" "#6699cc" "#cc99cc" "#66cccc" "#515151"))
- '(custom-enabled-themes (quote (spacemacs-dark)))
+ '(custom-enabled-themes '(spacemacs-dark))
  '(custom-safe-themes
-   (quote
-    ("bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" "628278136f88aa1a151bb2d6c8a86bf2b7631fbea5f0f76cba2a0079cd910f7d" "bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58" "1b8d67b43ff1723960eb5e0cba512a2c7a2ad544ddb2533a90101fd1852b426e" "82d2cac368ccdec2fcc7573f24c3f79654b78bf133096f9b40c20d97ec1d8016" default)))
+   '("bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" "628278136f88aa1a151bb2d6c8a86bf2b7631fbea5f0f76cba2a0079cd910f7d" "bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58" "1b8d67b43ff1723960eb5e0cba512a2c7a2ad544ddb2533a90101fd1852b426e" "82d2cac368ccdec2fcc7573f24c3f79654b78bf133096f9b40c20d97ec1d8016" default))
  '(fci-rule-color "#515151")
  '(inhibit-startup-screen t)
- '(js2-ignored-warnings (quote ("msg.extra.trailing.comma")) t)
+ '(js2-ignored-warnings '("msg.extra.trailing.comma") t)
  '(package-selected-packages
-   (quote
-    (json-mode flycheck-clj-kondo spacemacs-theme clojure-mode yaml-mode window-numbering web-mode use-package rubocop restclient prettier-js php-mode paredit neotree markdown-mode jsx-mode js2-mode jedi flycheck dockerfile-mode company color-theme-sanityinc-tomorrow cider ag)))
+   '(treemacs json-mode flycheck-clj-kondo spacemacs-theme clojure-mode yaml-mode window-numbering web-mode use-package rubocop restclient prettier-js php-mode paredit neotree markdown-mode jsx-mode js2-mode jedi flycheck dockerfile-mode company color-theme-sanityinc-tomorrow cider ag))
  '(safe-local-variable-values
-   (quote
-    ((cider-preferred-build-tool . "clojure-cli")
+   '((cider-preferred-build-tool . "clojure-cli")
      (eval progn
-           (require
-            (quote grep))
+           (require 'grep)
            (let
                ((my-ignores
-                 (quote
-                  ("mosfet/static/js/dist" "mosfet/static/js/jspm_packages")))
+                 '("mosfet/static/js/dist" "mosfet/static/js/jspm_packages"))
                 (gfid
-                 (make-local-variable
-                  (quote grep-find-ignored-directories))))
+                 (make-local-variable 'grep-find-ignored-directories)))
              (dolist
                  (my-ignore my-ignores)
                (add-to-list gfid my-ignore))))
-     (grep-find-ignored-directories "mosfet/static/js/dist" "mosfet/static/js/jspm_packages"))))
+     (grep-find-ignored-directories "mosfet/static/js/dist" "mosfet/static/js/jspm_packages")))
  '(vc-annotate-background nil)
  '(vc-annotate-color-map
-   (quote
-    ((20 . "#f2777a")
+   '((20 . "#f2777a")
      (40 . "#f99157")
      (60 . "#ffcc66")
      (80 . "#99cc99")
@@ -73,10 +66,10 @@
      (300 . "#f2777a")
      (320 . "#f99157")
      (340 . "#ffcc66")
-     (360 . "#99cc99"))))
+     (360 . "#99cc99")))
  '(vc-annotate-very-old-color nil)
  '(web-mode-block-padding 0 t)
- '(web-mode-comment-formats (quote (("javascript" . "//"))) t)
+ '(web-mode-comment-formats '(("javascript" . "//")) t)
  '(web-mode-comment-style 0 t)
  '(web-mode-markup-indent-offset 2 t)
  '(web-mode-script-padding 0 t)
@@ -292,5 +285,7 @@
 (setq visible-bell t)
 ;; (setq ring-bell-function 'ignore)
 
+(use-package treemacs
+  :ensure t)
 
 ;;; init.el ends here
