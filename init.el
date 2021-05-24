@@ -181,7 +181,10 @@
 ;; If it becomes annoying then I should remove the global
 ;; setting, and only add it to cider hooks.
 ;; instructions here: https://docs.cider.mx/cider/usage/code_completion.html
-(global-company-mode)
+(use-package company
+  :ensure t
+  :config
+  (global-company-mode))
 
 ;; (add-hook 'python-mode-hook 'jedi:setup)
 ;; (setq jedi:complete-on-dot t)
