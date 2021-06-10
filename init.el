@@ -35,7 +35,9 @@
  '(package-selected-packages
    '(treemacs json-mode flycheck-clj-kondo spacemacs-theme clojure-mode yaml-mode window-numbering web-mode use-package rubocop restclient prettier-js php-mode paredit neotree markdown-mode jsx-mode js2-mode jedi flycheck dockerfile-mode company color-theme-sanityinc-tomorrow cider ag))
  '(safe-local-variable-values
-   '((cider-preferred-build-tool . "clojure-cli")
+   '((cider-test-default-exclude-selectors "integration")
+     (eval setenv "DEV_QUIET_REPL" "1")
+     (cider-preferred-build-tool . "clojure-cli")
      (eval progn
            (require 'grep)
            (let
@@ -123,6 +125,8 @@
 (use-package flycheck-clj-kondo
   :ensure t)
 
+;; hs-minor-mode = hide/show, (kw: hide-show, hide show)
+
 (use-package clojure-mode
   :ensure t
   :mode "\\.boot$"
@@ -135,6 +139,11 @@
     ;; defmutation - fulcro - same as defrecord -
     ;;   see https://github.com/clojure-emacs/clojure-mode/blob/master/clojure-mode.el
     (defmutation '(2 nil nil (:defn)))))
+
+(use-package json-mode
+  :ensure t
+  :config
+  (add-hook 'json-mode-hook #'hs-minor-mode))
 
 
 ;; cider notes:
