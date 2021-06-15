@@ -33,7 +33,7 @@
  '(inhibit-startup-screen t)
  '(js2-ignored-warnings '("msg.extra.trailing.comma") t)
  '(package-selected-packages
-   '(treemacs json-mode flycheck-clj-kondo spacemacs-theme clojure-mode yaml-mode window-numbering web-mode use-package rubocop restclient prettier-js php-mode paredit neotree markdown-mode jsx-mode js2-mode jedi flycheck dockerfile-mode company color-theme-sanityinc-tomorrow cider ag))
+   '(zprint-mode treemacs json-mode flycheck-clj-kondo spacemacs-theme clojure-mode yaml-mode window-numbering web-mode use-package rubocop restclient prettier-js php-mode paredit neotree markdown-mode js2-mode jedi flycheck dockerfile-mode company color-theme-sanityinc-tomorrow cider ag))
  '(safe-local-variable-values
    '((cider-test-default-exclude-selectors "integration")
      (eval setenv "DEV_QUIET_REPL" "1")
@@ -107,10 +107,7 @@
 ;;   :config (load-theme 'sanityinc-tomorrow-blue))
 
 (use-package paredit
-  :ensure t
-  ;; :config
-  ;; (add-hook 'emacs-lisp-mode-hook #'paredit-mode)
-  )
+  :ensure t)
 
 (use-package elisp-mode
   :config
@@ -127,12 +124,17 @@
 
 ;; hs-minor-mode = hide/show, (kw: hide-show, hide show)
 
+;; clojure code formatter
+(use-package zprint-mode
+  :ensure t)
+
 (use-package clojure-mode
   :ensure t
   :mode "\\.boot$"
   :config
   (add-hook 'clojure-mode-hook #'enable-paredit-mode)
   (add-hook 'clojure-mode-hook #'hs-minor-mode)
+  (add-hook 'clojure-mode-hook #'zprint-mode)
   (define-clojure-indent
     ;; >defn - ghostwheel
     (>defn :defn)
@@ -195,8 +197,6 @@
   :config
   (global-company-mode))
 
-;; (add-hook 'python-mode-hook 'jedi:setup)
-;; (setq jedi:complete-on-dot t)
 (use-package jedi
   :ensure t
   :config
@@ -222,10 +222,10 @@
 (global-set-key (kbd "S-C-<up>") 'enlarge-window)
 
 
-(use-package jsx-mode
-  :mode "\\.jsx\\'"
-  :init
-  (setq jsx-indent-level 4))
+;; (use-package jsx-mode
+;;   :mode "\\.jsx\\'"
+;;   :init
+;;   (setq jsx-indent-level 4))
 
 ;; NeoTree - https://www.emacswiki.org/emacs/NeoTree
 (use-package neotree
