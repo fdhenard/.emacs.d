@@ -134,7 +134,8 @@
   :config
   (add-hook 'clojure-mode-hook #'enable-paredit-mode)
   (add-hook 'clojure-mode-hook #'hs-minor-mode)
-  (add-hook 'clojure-mode-hook #'zprint-mode)
+  ;; zprint-mode updates buffers on save automatically - do not want
+  ;; (add-hook 'clojure-mode-hook #'zprint-mode)
   (define-clojure-indent
     ;; >defn - ghostwheel
     (>defn :defn)
