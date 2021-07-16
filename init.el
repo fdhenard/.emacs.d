@@ -4,10 +4,14 @@
 
 ;;; Code:
 
-(setq package-archives
-      '(("gnu" . "http://elpa.gnu.org/packages/")
-        ("melpa" . "https://melpa.org/packages/")
-        ("melpa-stable" . "http://stable.melpa.org/packages/")))
+(require 'package)
+
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
+(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+;; (setq package-archives
+;;       '(("gnu" . "https://elpa.gnu.org/packages/")
+;;         ("melpa" . "https://melpa.org/packages/")
+;;         ("melpa-stable" . "https://stable.melpa.org/packages/")))
 
 (setq package-archive-priorities
   '(("melpa-stable" . 30)
