@@ -21,6 +21,16 @@
 ;; activate installed packages
 (package-initialize)
 
+;; notes on custom set variables
+;;
+;; - '(gnutls-algorithm-priority "normal:-vers-tls1.3")
+;;    - set on 7/23/21
+;;    - explanation
+;;        - package-list-packages was giving errors regarding
+;;          not being able to find melpa and elpa package repositories
+;;        - this answer is what helped me:
+;;          https://stackoverflow.com/a/60638601/59439
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -79,7 +89,8 @@
  '(web-mode-comment-style 0 t)
  '(web-mode-markup-indent-offset 2 t)
  '(web-mode-script-padding 0 t)
- '(web-mode-style-padding 0 t))
+ '(web-mode-style-padding 0 t)
+ '(gnutls-algorithm-priority "normal:-vers-tls1.3"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
