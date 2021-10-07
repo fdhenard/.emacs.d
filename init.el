@@ -48,7 +48,7 @@
  '(inhibit-startup-screen t)
  '(js2-ignored-warnings '("msg.extra.trailing.comma") t)
  '(package-selected-packages
-   '(terraform-mode zprint-mode treemacs json-mode flycheck-clj-kondo spacemacs-theme clojure-mode yaml-mode window-numbering web-mode use-package rubocop restclient prettier-js php-mode paredit neotree markdown-mode js2-mode jedi flycheck dockerfile-mode company color-theme-sanityinc-tomorrow cider ag))
+   '(groovy-mode terraform-mode zprint-mode treemacs json-mode flycheck-clj-kondo spacemacs-theme clojure-mode yaml-mode window-numbering web-mode use-package rubocop restclient prettier-js php-mode paredit neotree markdown-mode js2-mode jedi flycheck dockerfile-mode company color-theme-sanityinc-tomorrow cider ag))
  '(safe-local-variable-values
    '((cider-test-default-exclude-selectors "integration")
      (eval setenv "DEV_QUIET_REPL" "1")
@@ -145,7 +145,7 @@
 
 (use-package clojure-mode
   :ensure t
-  :mode "\\.boot$"
+  :mode ("\\.boot$")
   :config
   (add-hook 'clojure-mode-hook #'enable-paredit-mode)
   (add-hook 'clojure-mode-hook #'hs-minor-mode)
@@ -238,11 +238,6 @@
 (global-set-key (kbd "S-C-<up>") 'enlarge-window)
 
 
-;; (use-package jsx-mode
-;;   :mode "\\.jsx\\'"
-;;   :init
-;;   (setq jsx-indent-level 4))
-
 ;; NeoTree - https://www.emacswiki.org/emacs/NeoTree
 (use-package neotree
   :ensure t
@@ -285,7 +280,7 @@
 
 (use-package js2-mode
   :ensure t
-  :mode "\\.js\\'"
+  :mode ("\\.js\\'")
   :hook js2-imenu-extras-mode
   :custom
   (js2-ignored-warnings (quote ("msg.extra.trailing.comma"))))
@@ -295,7 +290,7 @@
   (setq reb-re-syntax 'string))
 
 (use-package restclient-mode
-  :mode "\\.http\\'")
+  :mode ("\\.http\\'"))
 
 (use-package rubocop
   :ensure t
@@ -315,5 +310,9 @@
 
 (use-package treemacs
   :ensure t)
+
+(use-package groovy-mode
+  :ensure t
+  :mode ("^Jenkinsfile$"))
 
 ;;; init.el ends here
