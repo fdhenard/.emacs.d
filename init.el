@@ -8,10 +8,6 @@
 
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
 (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
-;; (setq package-archives
-;;       '(("gnu" . "https://elpa.gnu.org/packages/")
-;;         ("melpa" . "https://melpa.org/packages/")
-;;         ("melpa-stable" . "https://stable.melpa.org/packages/")))
 
 (setq package-archive-priorities
   '(("melpa-stable" . 30)
@@ -46,9 +42,9 @@
  '(fci-rule-color "#515151")
  '(gnutls-algorithm-priority "normal:-vers-tls1.3")
  '(inhibit-startup-screen t)
- '(js2-ignored-warnings '("msg.extra.trailing.comma") t)
+ '(js2-ignored-warnings '("msg.extra.trailing.comma"))
  '(package-selected-packages
-   '(groovy-mode terraform-mode zprint-mode treemacs json-mode flycheck-clj-kondo spacemacs-theme clojure-mode yaml-mode window-numbering web-mode use-package rubocop restclient prettier-js php-mode paredit neotree markdown-mode js2-mode jedi flycheck dockerfile-mode company color-theme-sanityinc-tomorrow cider ag))
+   '(coffee-mode quelpa-use-package guaranteed-emacs dash-functional quelpa groovy-mode terraform-mode zprint-mode treemacs json-mode flycheck-clj-kondo spacemacs-theme clojure-mode yaml-mode window-numbering web-mode use-package rubocop restclient prettier-js php-mode paredit neotree markdown-mode js2-mode jedi flycheck dockerfile-mode company color-theme-sanityinc-tomorrow cider ag))
  '(safe-local-variable-values
    '((cider-test-default-exclude-selectors "integration")
      (eval setenv "DEV_QUIET_REPL" "1")
@@ -107,6 +103,19 @@
 (eval-when-compile
   (require 'use-package))
 
+(unless (package-installed-p 'quelpa)
+  (with-temp-buffer
+    (url-insert-file-contents "https://raw.githubusercontent.com/quelpa/quelpa/master/quelpa.el")
+    (eval-buffer)
+    (quelpa-self-upgrade)))
+;; need `brew install gnu-tar`
+(setq-default quelpa-build-tar-executable "/usr/local/bin/gtar")
+
+(quelpa
+ '(quelpa-use-package
+   :fetcher git
+   :url "https://github.com/quelpa/quelpa-use-package.git"))
+(require 'quelpa-use-package)
 
 (set-language-environment "UTF-8")
 
@@ -117,14 +126,16 @@
 (global-linum-mode t)
 (setq column-number-mode t)
 
+(setq use-package-always-ensure t)
+
 ;; (use-package color-theme-sanityinc-tomorrow
 ;;   :ensure t
 ;;   :config (load-theme 'sanityinc-tomorrow-blue))
 
-(use-package paredit
-  :ensure t)
+(use-package paredit)
 
 (use-package elisp-mode
+  :ensure nil
   :config
   (add-hook 'emacs-lisp-mode-hook #'enable-paredit-mode))
 
@@ -134,17 +145,14 @@
   (prog1 (kill-ring-save beg end)
     (setq deactivate-mark nil)))
 
-(use-package flycheck-clj-kondo
-  :ensure t)
+(use-package flycheck-clj-kondo)
 
 ;; hs-minor-mode = hide/show, (kw: hide-show, hide show)
 
 ;; clojure code formatter
-(use-package zprint-mode
-  :ensure t)
+(use-package zprint-mode)
 
 (use-package clojure-mode
-  :ensure t
   :mode ("\\.boot$")
   :config
   (add-hook 'clojure-mode-hook #'enable-paredit-mode)
@@ -159,7 +167,6 @@
     (defmutation '(2 nil nil (:defn)))))
 
 (use-package json-mode
-  :ensure t
   :config
   (add-hook 'json-mode-hook #'hs-minor-mode))
 
@@ -168,7 +175,6 @@
 ;; key combinations
 ;;  - an equivalent to `M-x cider-repl-clear-buffer` = `C-u C-c C-o
 (use-package cider
-  :ensure t
   :pin melpa-stable
   :init
   (setq cider-repl-popup-stacktraces t))
@@ -209,19 +215,16 @@
 ;; setting, and only add it to cider hooks.
 ;; instructions here: https://docs.cider.mx/cider/usage/code_completion.html
 (use-package company
-  :ensure t
   :config
   (global-company-mode))
 
-(use-package jedi
-  :ensure t
-  :config
-  (add-hook 'python-mode-hook 'jedi:setup)
-  (setq jedi:complete-on-dot t))
+;; (use-package jedik
+;;   :config
+;;   (add-hook 'python-mode-hook 'jedi:setup)
+;;   (setq jedi:complete-on-dot t))
 
 ;; Flycheck prereq - 6/10/19 need flake8 -> pip3 install flake8 (globally, no venv)
 (use-package flycheck
-  :ensure t
   :init (global-flycheck-mode))
 
 (global-set-key (kbd "C-x <up>") 'windmove-up)
@@ -238,9 +241,10 @@
 (global-set-key (kbd "S-C-<up>") 'enlarge-window)
 
 
+
+
 ;; NeoTree - https://www.emacswiki.org/emacs/NeoTree
 (use-package neotree
-  :ensure t
   :bind (([f8] . neotree-toggle))
   :config
   (setq neo-autorefresh nil)
@@ -252,7 +256,6 @@
 
 ;; https://melpa.org/#/window-numbering
 (use-package window-numbering
-  :ensure t
   :config (window-numbering-mode))
 
 (use-package scheme
@@ -260,7 +263,6 @@
   (add-hook 'scheme-mode-hook #'enable-paredit-mode))
 
 (use-package web-mode
-  :ensure t
   :mode ("\\.vue\\'"
          "\\.html\\'"
          "\\.html.erb\\'")
@@ -279,7 +281,6 @@
   :mode ("\\.coffee.erb\\'"))
 
 (use-package js2-mode
-  :ensure t
   :mode ("\\.js\\'")
   :hook js2-imenu-extras-mode
   :custom
@@ -289,30 +290,33 @@
   :init
   (setq reb-re-syntax 'string))
 
-(use-package restclient-mode
+(use-package restclient
   :mode ("\\.http\\'"))
 
 (use-package rubocop
-  :ensure t
   :init
   (add-hook 'ruby-mode-hook #'rubocop-mode))
 
- (use-package dired
-   :config
-   (when (string= system-type "darwin")
-     (setq dired-use-ls-dired nil))
-   :init
-   (add-hook 'dired-mode-hook #'dired-hide-details-mode))
+(use-package dired
+  :ensure nil
+  :config
+  (when (string= system-type "darwin")
+    (setq dired-use-ls-dired nil))
+  :init
+  (add-hook 'dired-mode-hook #'dired-hide-details-mode))
 
 ;; turn off bell
 (setq visible-bell t)
 ;; (setq ring-bell-function 'ignore)
 
-(use-package treemacs
-  :ensure t)
+(use-package treemacs)
 
 (use-package groovy-mode
-  :ensure t
   :mode ("^Jenkinsfile$"))
+
+(when (string-prefix-p "GR" (system-name))
+  (use-package guaranteed-emacs
+    :quelpa ((guaranteed-emacs :fetcher github-ssh :repo "Guaranteed-Rate/guaranteed-emacs")
+             :upgrade t)))
 
 ;;; init.el ends here
