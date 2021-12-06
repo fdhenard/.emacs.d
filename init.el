@@ -42,9 +42,9 @@
  '(fci-rule-color "#515151")
  '(gnutls-algorithm-priority "normal:-vers-tls1.3")
  '(inhibit-startup-screen t)
- '(js2-ignored-warnings '("msg.extra.trailing.comma"))
+ '(js2-ignored-warnings '("msg.extra.trailing.comma") t)
  '(package-selected-packages
-   '(coffee-mode quelpa-use-package guaranteed-emacs dash-functional quelpa groovy-mode terraform-mode zprint-mode treemacs json-mode flycheck-clj-kondo spacemacs-theme clojure-mode yaml-mode window-numbering web-mode use-package rubocop restclient prettier-js php-mode paredit neotree markdown-mode js2-mode jedi flycheck dockerfile-mode company color-theme-sanityinc-tomorrow cider ag))
+   '(csv-mode coffee-mode quelpa-use-package guaranteed-emacs dash-functional quelpa groovy-mode terraform-mode zprint-mode treemacs json-mode flycheck-clj-kondo spacemacs-theme clojure-mode yaml-mode window-numbering web-mode use-package rubocop restclient prettier-js php-mode paredit neotree markdown-mode js2-mode jedi flycheck dockerfile-mode company color-theme-sanityinc-tomorrow cider ag))
  '(safe-local-variable-values
    '((cider-test-default-exclude-selectors "integration")
      (eval setenv "DEV_QUIET_REPL" "1")
