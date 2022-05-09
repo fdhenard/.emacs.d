@@ -44,7 +44,7 @@
  '(inhibit-startup-screen t)
  '(js2-ignored-warnings '("msg.extra.trailing.comma") t)
  '(package-selected-packages
-   '(csv-mode coffee-mode quelpa-use-package guaranteed-emacs dash-functional quelpa groovy-mode terraform-mode zprint-mode treemacs json-mode flycheck-clj-kondo spacemacs-theme clojure-mode yaml-mode window-numbering web-mode use-package rubocop restclient prettier-js php-mode paredit neotree markdown-mode js2-mode jedi flycheck dockerfile-mode company color-theme-sanityinc-tomorrow cider ag))
+   '(typescript-mode csv-mode coffee-mode quelpa-use-package guaranteed-emacs dash-functional quelpa groovy-mode terraform-mode zprint-mode treemacs json-mode flycheck-clj-kondo spacemacs-theme clojure-mode yaml-mode window-numbering web-mode use-package rubocop restclient prettier-js php-mode paredit neotree markdown-mode js2-mode jedi flycheck dockerfile-mode company color-theme-sanityinc-tomorrow cider ag))
  '(safe-local-variable-values
    '((cider-test-default-exclude-selectors "integration")
      (eval setenv "DEV_QUIET_REPL" "1")
@@ -312,11 +312,22 @@
 (use-package treemacs)
 
 (use-package groovy-mode
-  :mode ("^Jenkinsfile$"))
+  :mode ("^Jenkinsfile$")
+  :custom
+  (groovy-indent-offset 2))
+
+(use-package typescript-mode
+  :custom
+  (typescript-indent-level 2))
 
 (when (string-prefix-p "GR" (system-name))
   (use-package guaranteed-emacs
     :quelpa ((guaranteed-emacs :fetcher github-ssh :repo "Guaranteed-Rate/guaranteed-emacs")
-             :upgrade t)))
+             :upgrade t))
+
+  (setenv "CONFIG" (expand-file-name "~/dev/repos/team-beacon/configs/dev.edn"))
+  (setenv "BEACON_PROD_CONFIG" (expand-file-name "~/dev/repos/team-beacon/configs/prod.edn"))
+
+  )
 
 ;;; init.el ends here
