@@ -42,9 +42,8 @@
  '(fci-rule-color "#515151")
  '(gnutls-algorithm-priority "normal:-vers-tls1.3")
  '(inhibit-startup-screen t)
- '(js2-ignored-warnings '("msg.extra.trailing.comma") t)
  '(package-selected-packages
-   '(typescript-mode csv-mode coffee-mode quelpa-use-package guaranteed-emacs dash-functional quelpa groovy-mode terraform-mode zprint-mode treemacs json-mode flycheck-clj-kondo spacemacs-theme clojure-mode yaml-mode window-numbering web-mode use-package rubocop restclient prettier-js php-mode paredit neotree markdown-mode js2-mode jedi flycheck dockerfile-mode company color-theme-sanityinc-tomorrow cider ag))
+   '(corfu typescript-mode csv-mode coffee-mode quelpa-use-package guaranteed-emacs dash-functional quelpa groovy-mode terraform-mode zprint-mode treemacs json-mode flycheck-clj-kondo spacemacs-theme clojure-mode yaml-mode window-numbering web-mode use-package rubocop restclient prettier-js php-mode paredit neotree markdown-mode js2-mode jedi flycheck dockerfile-mode company color-theme-sanityinc-tomorrow cider ag))
  '(safe-local-variable-values
    '((cider-test-default-exclude-selectors "integration")
      (eval setenv "DEV_QUIET_REPL" "1")
@@ -80,13 +79,7 @@
      (320 . "#f99157")
      (340 . "#ffcc66")
      (360 . "#99cc99")))
- '(vc-annotate-very-old-color nil)
- '(web-mode-block-padding 0 t)
- '(web-mode-comment-formats '(("javascript" . "//")) t)
- '(web-mode-comment-style 0 t)
- '(web-mode-markup-indent-offset 2 t)
- '(web-mode-script-padding 0 t)
- '(web-mode-style-padding 0 t))
+ '(vc-annotate-very-old-color nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -208,15 +201,59 @@
 (setq backup-directory-alist `(("." . "~/.emacs.d/backups/")))
 (put 'narrow-to-region 'disabled nil)
 
+
+;; ;; code completion
+;; 1/17/23 - trying corfu over company because of Derek Passen's suggestion:
+;;           https://clojurians.slack.com/archives/C0617A8PQ/p1673977835153939
 ;; global-company-mode
 ;; added for auto completion in cider (clojure). However, it
 ;; might be nice in other modes as well.
 ;; If it becomes annoying then I should remove the global
 ;; setting, and only add it to cider hooks.
 ;; instructions here: https://docs.cider.mx/cider/usage/code_completion.html
-(use-package company
-  :config
-  (global-company-mode))
+;; (use-package company
+;;   :config
+;;   (global-company-mode))
+
+(use-package corfu
+  ;; Optional customizations
+  ;; :custom
+  ;; (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
+  ;; (corfu-auto t)                 ;; Enable auto completion
+  ;; (corfu-separator ?\s)          ;; Orderless field separator
+  ;; (corfu-quit-at-boundary nil)   ;; Never quit at completion boundary
+  ;; (corfu-quit-no-match nil)      ;; Never quit, even if there is no match
+  ;; (corfu-preview-current nil)    ;; Disable current candidate preview
+  ;; (corfu-preselect 'prompt)      ;; Preselect the prompt
+  ;; (corfu-on-exact-match nil)     ;; Configure handling of exact matches
+  ;; (corfu-scroll-margin 5)        ;; Use scroll margin
+
+  ;; Enable Corfu only for certain modes.
+  ;; :hook ((prog-mode . corfu-mode)
+  ;;        (shell-mode . corfu-mode)
+  ;;        (eshell-mode . corfu-mode))
+  :hook ((clojure-mode . corfu-mode))
+
+  ;; Recommended: Enable Corfu globally.
+  ;; This is recommended since Dabbrev can be used globally (M-/).
+  ;; See also `corfu-excluded-modes'.
+  :init
+  (global-corfu-mode))
+
+;; 1/17/23 - added use-package emacs for corfu - see corfu's github readme
+(use-package emacs
+  :init
+  ;; TAB cycle if there are only few candidates
+  (setq completion-cycle-threshold 3)
+
+  ;; Emacs 28: Hide commands in M-x which do not apply to the current mode.
+  ;; Corfu commands are hidden, since they are not supposed to be used via M-x.
+  ;; (setq read-extended-command-predicate
+  ;;       #'command-completion-default-include-p)
+
+  ;; Enable indentation+completion using the TAB key.
+  ;; `completion-at-point' is often bound to M-TAB.
+  (setq tab-always-indent 'complete))
 
 ;; (use-package jedik
 ;;   :config
