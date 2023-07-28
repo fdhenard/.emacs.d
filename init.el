@@ -357,16 +357,16 @@
   :custom
   (typescript-indent-level 2))
 
-(when (string-prefix-p "GR" (system-name))
-  (use-package guaranteed-emacs
-    :quelpa ((guaranteed-emacs :fetcher github-ssh :repo "Guaranteed-Rate/guaranteed-emacs")
-             :upgrade t))
+;; (when (string-prefix-p "GR" (system-name))
+;;   (use-package guaranteed-emacs
+;;     :quelpa ((guaranteed-emacs :fetcher github-ssh :repo "Guaranteed-Rate/guaranteed-emacs")
+;;              :upgrade t))
 
-  (let ((team-beacon-repo-path (expand-file-name "~/dev/repos/team-beacon")))
-   (setenv "TEAM_BEACON_REPO_PATH" team-beacon-repo-path)
-   (setenv "CONFIG" (concat team-beacon-repo-path "/configs/dev.edn"))
-   (setenv "BEACON_PROD_CONFIG" (concat team-beacon-repo-path "/configs/prod.edn")))
+;;   (let ((team-beacon-repo-path (expand-file-name "~/dev/repos/team-beacon")))
+;;    (setenv "TEAM_BEACON_REPO_PATH" team-beacon-repo-path)
+;;    (setenv "CONFIG" (concat team-beacon-repo-path "/configs/dev.edn"))
+;;    (setenv "BEACON_PROD_CONFIG" (concat team-beacon-repo-path "/configs/prod.edn")))
 
-  )
+;;   )
 
 ;;; init.el ends here
