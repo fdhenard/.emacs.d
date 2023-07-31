@@ -116,7 +116,8 @@
 (global-auto-revert-mode 1)
 
 ;; line numbers please
-(global-linum-mode t)
+;; (global-linum-mode t)
+(global-display-line-numbers-mode)
 (setq column-number-mode t)
 
 (setq use-package-always-ensure t)
