@@ -45,7 +45,10 @@
  '(package-selected-packages
    '(corfu typescript-mode csv-mode coffee-mode quelpa-use-package guaranteed-emacs dash-functional quelpa groovy-mode terraform-mode zprint-mode treemacs json-mode flycheck-clj-kondo spacemacs-theme clojure-mode yaml-mode window-numbering web-mode use-package rubocop restclient prettier-js php-mode paredit neotree markdown-mode js2-mode jedi flycheck dockerfile-mode company color-theme-sanityinc-tomorrow cider ag))
  '(safe-local-variable-values
-   '((cider-test-default-exclude-selectors "integration")
+   '((eval progn
+           (make-variable-buffer-local 'cider-jack-in-nrepl-middlewares)
+           (add-to-list 'cider-jack-in-nrepl-middlewares "shadow.cljs.devtools.server.nrepl/middleware"))
+     (cider-test-default-exclude-selectors "integration")
      (eval setenv "DEV_QUIET_REPL" "1")
      (cider-preferred-build-tool . "clojure-cli")
      (eval progn
