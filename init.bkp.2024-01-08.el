@@ -4,18 +4,18 @@
 
 ;;; Code:
 
-;; (require 'package)
+(require 'package)
 
-;; (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
-;; (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
+(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 
-;; (setq package-archive-priorities
-;;   '(("melpa-stable" . 30)
-;;     ("gnu" . 10)
-;;     ("melpa" . 0)))
+(setq package-archive-priorities
+  '(("melpa-stable" . 30)
+    ("gnu" . 10)
+    ("melpa" . 0)))
 
-;; ;; activate installed packages
-;; (package-initialize)
+;; activate installed packages
+(package-initialize)
 
 ;; notes on custom set variables
 ;;
@@ -26,27 +26,6 @@
 ;;          not being able to find melpa and elpa package repositories
 ;;        - this answer is what helped me:
 ;;          https://stackoverflow.com/a/60638601/59439
-
-(setq package-enable-at-startup nil)
-
-(defvar bootstrap-version)
-(let ((bootstrap-file
-       (expand-file-name
-        "straight/repos/straight.el/bootstrap.el"
-        (or (bound-and-true-p straight-base-dir)
-            user-emacs-directory)))
-      (bootstrap-version 7))
-  (unless (file-exists-p bootstrap-file)
-    (with-current-buffer
-        (url-retrieve-synchronously
-         "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
-         'silent 'inhibit-cookies)
-      (goto-char (point-max))
-      (eval-print-last-sexp)))
-  (load bootstrap-file nil 'nomessage))
-
-(straight-use-package 'use-package)
-
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -111,11 +90,11 @@
  ;; If there is more than one, they won't work right.
  )
 
-;; (package-install-selected-packages)
+(package-install-selected-packages)
 
-;; (unless (package-installed-p 'use-package)
-;;   (package-refresh-contents)
-;;   (package-install 'use-package))
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
 
 (eval-when-compile
   (require 'use-package))
@@ -144,22 +123,16 @@
 (global-display-line-numbers-mode)
 (setq column-number-mode t)
 
-;; (setq use-package-always-ensure t)
-;; (setq straight-use-package-by-default t)
+(setq use-package-always-ensure t)
 
 ;; (use-package color-theme-sanityinc-tomorrow
 ;;   :ensure t
 ;;   :config (load-theme 'sanityinc-tomorrow-blue))
-(use-package spacemacs-theme
-  :straight t
-  :defer t
-  :init (load-theme 'spacemacs-dark t))
 
-(use-package paredit
-  :straight t)
+(use-package paredit)
 
 (use-package elisp-mode
-  ;; :ensure nil
+  :ensure nil
   :config
   (add-hook 'emacs-lisp-mode-hook #'enable-paredit-mode))
 
@@ -169,14 +142,12 @@
   (prog1 (kill-ring-save beg end)
     (setq deactivate-mark nil)))
 
-(use-package flycheck-clj-kondo
-  :straight t)
+(use-package flycheck-clj-kondo)
 
 ;; hs-minor-mode = hide/show, (kw: hide-show, hide show)
 
 ;; clojure code formatter
-(use-package zprint-mode
-  :straight t)
+(use-package zprint-mode)
 
 (use-package clojure-mode
   :mode ("\\.boot$")
@@ -193,7 +164,6 @@
     (defmutation '(2 nil nil (:defn)))))
 
 (use-package json-mode
-  :straight t
   :config
   (add-hook 'json-mode-hook #'hs-minor-mode))
 
@@ -202,8 +172,7 @@
 ;; key combinations
 ;;  - an equivalent to `M-x cider-repl-clear-buffer` = `C-u C-c C-o
 (use-package cider
-  :straight t
-  ;; :pin melpa-stable
+  :pin melpa-stable
   :init
   (setq cider-repl-popup-stacktraces t))
 
@@ -251,7 +220,6 @@
 ;;   (global-company-mode))
 
 (use-package corfu
-  :straight t
   ;; Optional customizations
   ;; :custom
   ;; (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
@@ -318,7 +286,6 @@
 
 ;; NeoTree - https://www.emacswiki.org/emacs/NeoTree
 (use-package neotree
-  :straight t
   :bind (([f8] . neotree-toggle))
   :config
   (setq neo-autorefresh nil)
@@ -330,7 +297,6 @@
 
 ;; https://melpa.org/#/window-numbering
 (use-package window-numbering
-  :straight t
   :config (window-numbering-mode))
 
 (use-package scheme
@@ -369,7 +335,6 @@
   :mode ("\\.http\\'"))
 
 (use-package rubocop
-  :straight t
   :init
   (add-hook 'ruby-mode-hook #'rubocop-mode))
 
@@ -385,8 +350,7 @@
 (setq visible-bell t)
 ;; (setq ring-bell-function 'ignore)
 
-(use-package treemacs
-  :straight t)
+(use-package treemacs)
 
 (use-package groovy-mode
   :mode ("^Jenkinsfile$")
@@ -394,7 +358,6 @@
   (groovy-indent-offset 2))
 
 (use-package typescript-mode
-  :straight t
   :custom
   (typescript-indent-level 2))
 
