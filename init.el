@@ -1,3 +1,5 @@
+;;; -*- lexical-binding: t; -*-
+
 ;;; Package --- summary
 
 ;;; Commentary:
@@ -63,8 +65,6 @@
  '(fci-rule-color "#515151")
  '(gnutls-algorithm-priority "normal:-vers-tls1.3")
  '(inhibit-startup-screen t)
- '(package-selected-packages
-   '(corfu typescript-mode csv-mode coffee-mode quelpa-use-package guaranteed-emacs dash-functional quelpa groovy-mode terraform-mode zprint-mode treemacs json-mode flycheck-clj-kondo spacemacs-theme clojure-mode yaml-mode window-numbering web-mode use-package rubocop restclient prettier-js php-mode paredit neotree markdown-mode js2-mode jedi flycheck dockerfile-mode company color-theme-sanityinc-tomorrow cider ag))
  '(safe-local-variable-values
    '((eval progn
            (make-variable-buffer-local 'cider-jack-in-nrepl-middlewares)
@@ -120,19 +120,19 @@
 (eval-when-compile
   (require 'use-package))
 
-(unless (package-installed-p 'quelpa)
-  (with-temp-buffer
-    (url-insert-file-contents "https://raw.githubusercontent.com/quelpa/quelpa/master/quelpa.el")
-    (eval-buffer)
-    (quelpa-self-upgrade)))
+;; (unless (package-installed-p 'quelpa)
+;;   (with-temp-buffer
+;;     (url-insert-file-contents "https://raw.githubusercontent.com/quelpa/quelpa/master/quelpa.el")
+;;     (eval-buffer)
+;;     (quelpa-self-upgrade)))
 ;; need `brew install gnu-tar`
-(setq-default quelpa-build-tar-executable "/usr/local/bin/gtar")
+;; (setq-default quelpa-build-tar-executable "/usr/local/bin/gtar")
 
-(quelpa
- '(quelpa-use-package
-   :fetcher git
-   :url "https://github.com/quelpa/quelpa-use-package.git"))
-(require 'quelpa-use-package)
+;; (quelpa
+;;  '(quelpa-use-package
+;;    :fetcher git
+;;    :url "https://github.com/quelpa/quelpa-use-package.git"))
+;; (require 'quelpa-use-package)
 
 (set-language-environment "UTF-8")
 
@@ -150,6 +150,7 @@
 ;; (use-package color-theme-sanityinc-tomorrow
 ;;   :ensure t
 ;;   :config (load-theme 'sanityinc-tomorrow-blue))
+
 (use-package spacemacs-theme
   :straight t
   :defer t
